@@ -4,6 +4,10 @@ Commands to run in i3blocks to get concise information about your system.
 
 These commands will output colors from [Gruvbox](https://github.com/morhetz/gruvbox) and use icons from Font Awesome.
 
+## Installation
+
+Install by running `cargo install` in the project root. The binaries will then be added to your `~/.cargo/bin` directory.
+
 ## Commands
 
 ### `bar-memory`
