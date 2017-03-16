@@ -48,8 +48,8 @@ fn print_stats(was_clicked: bool, total_kb: i32, available_kb: i32) {
     let percent_used = 100.0 - percent_available;
 
     let (style_start, style_end) = match percent_used {
-        ERROR_THRESHOLD...100.0 => (ERROR_FORMAT, ""),
-        WARN_THRESHOLD...ERROR_THRESHOLD => (WARN_FORMAT, ""),
+        ERROR_THRESHOLD...100.0 => (ERROR_FORMAT, "</span>"),
+        WARN_THRESHOLD...ERROR_THRESHOLD => (WARN_FORMAT, "</span>"),
         _ => ("", ""),
     };
 
