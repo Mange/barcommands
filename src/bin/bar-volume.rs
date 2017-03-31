@@ -126,6 +126,7 @@ fn get_sinks() -> Vec<Sink> {
     let output = Command::new("pactl")
         .arg("list")
         .arg("sinks")
+        .env("LC_ALL", "C")
         .output()
         .expect("Could not run pactl")
         .stdout;
@@ -139,6 +140,7 @@ fn get_default_sink_name() -> Option<String> {
 
     let output = Command::new("pactl")
         .arg("info")
+        .env("LC_ALL", "C")
         .output()
         .expect("Could not run pactl")
         .stdout;
@@ -162,6 +164,7 @@ fn subscribe() {
 
     let process = Command::new("pactl")
         .arg("subscribe")
+        .env("LC_ALL", "C")
         .stdin(Stdio::null())
         .stderr(Stdio::null())
         .stdout(Stdio::piped())
