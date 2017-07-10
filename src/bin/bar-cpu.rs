@@ -5,7 +5,7 @@ extern crate regex;
 
 use std::io::BufReader;
 use std::io::prelude::*;
-use std::process::{Command, Stdio};
+use std::process::{Command, Stdio, Child};
 
 use regex::Regex;
 
@@ -21,16 +21,21 @@ const ERROR_FORMAT: &'static str = "<span color=\"#cc241d\">"; // neutral_red
 fn main() {
     print_usage(0.0);
 
-    // Spawn the mpstat command in the background and process each line in turn.
-    let mut process = Command::new("mpstat")
+    let process = Command::new("mpstat")
         .arg(INTERVAL)
         .env("LC_ALL", "C")
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::null())
-        .spawn()
-        .expect("Could not run mpstat");
+        .spawn();
 
+    match process {
+        Ok(process) => stream_process_output(process),
+        Err(error) => println!("ERROR: mpstat: {}", error),
+    }
+}
+
+fn stream_process_output(mut process: Child) {
     if let Some(output) = process.stdout {
         for line in BufReader::new(output).lines() {
             let line = line.expect("Line included non-UTF-8 characters");
