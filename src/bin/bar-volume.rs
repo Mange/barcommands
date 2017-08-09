@@ -58,7 +58,7 @@ impl Default for Sink {
 
 impl Sink {
     fn is_valid(&self) -> bool {
-        self.number >= 0 && self.name.len() > 0
+        self.number >= 0 && !self.name.is_empty()
     }
 
     fn icon(&self) -> &'static str {
@@ -91,7 +91,7 @@ fn parse_sinks(text: &str) -> Vec<Sink> {
     let mut sink = Sink::default();
 
     for line in text.lines() {
-        if SINK_RE.is_match(&line) {
+        if SINK_RE.is_match(line) {
             if sink.is_valid() {
                 sinks.push(sink);
             }

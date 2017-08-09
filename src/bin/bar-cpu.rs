@@ -40,14 +40,14 @@ fn stream_process_output(mut process: Child) {
     if let Some(output) = process.stdout {
         for line in BufReader::new(output).lines() {
             let line = line.expect("Line included non-UTF-8 characters");
-            process_line(line);
+            process_line(&line);
         }
     } else {
         process.kill().expect("Could not kill process");
     }
 }
 
-fn process_line(line: String) {
+fn process_line(line: &str) {
     lazy_static! {
         // 13:42:18     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
         static ref RE: Regex = Regex::new(r#"(?x)
@@ -61,12 +61,9 @@ fn process_line(line: String) {
         "#).expect("Failed to compile regexp");
     }
 
-    match RE.captures(&line) {
-        Some(captures) => {
-            let idle: f32 = captures["idle"].parse().unwrap_or(0.0);
-            print_usage(100.0 - idle);
-        }
-        None => {} // Do nothing
+    if let Some(captures) = RE.captures(line) {
+        let idle: f32 = captures["idle"].parse().unwrap_or(0.0);
+        print_usage(100.0 - idle);
     }
 }
 
