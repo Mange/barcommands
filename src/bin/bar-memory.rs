@@ -6,6 +6,7 @@ use std::process::exit;
 
 const WARN_THRESHOLD: f32 = 70.0;
 const ERROR_THRESHOLD: f32 = 90.0;
+const HUNDRED: f32 = 100.0;
 
 const WARN_FORMAT: &'static str = "<span color=\"#d79921\">"; // neutral_yellow
 const ERROR_FORMAT: &'static str = "<span color=\"#cc241d\">"; // neutral_red
@@ -50,7 +51,7 @@ fn print_stats(was_clicked: bool, total_kb: i32, available_kb: i32) {
     let percent_used = 100.0 - percent_available;
 
     let (style_start, style_end) = match percent_used {
-        ERROR_THRESHOLD...100.0 => (ERROR_FORMAT, "</span>"),
+        ERROR_THRESHOLD...HUNDRED => (ERROR_FORMAT, "</span>"),
         WARN_THRESHOLD...ERROR_THRESHOLD => (WARN_FORMAT, "</span>"),
         _ => ("", ""),
     };

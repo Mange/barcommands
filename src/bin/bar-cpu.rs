@@ -14,6 +14,7 @@ const FA_COG: &'static str = "\u{f013}";
 
 const WARN_THRESHOLD: f32 = 70.0;
 const ERROR_THRESHOLD: f32 = 90.0;
+const HUNDRED: f32 = 100.0;
 
 const WARN_FORMAT: &'static str = "<span color=\"#d79921\">"; // neutral_yellow
 const ERROR_FORMAT: &'static str = "<span color=\"#cc241d\">"; // neutral_red
@@ -71,7 +72,7 @@ fn process_line(line: String) {
 
 fn print_usage(usage: f32) {
     let (style_start, style_end) = match usage {
-        ERROR_THRESHOLD...100.0 => (ERROR_FORMAT, "</span>"),
+        ERROR_THRESHOLD...HUNDRED => (ERROR_FORMAT, "</span>"),
         WARN_THRESHOLD...ERROR_THRESHOLD => (WARN_FORMAT, "</span>"),
         _ => ("", ""),
     };
