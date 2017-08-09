@@ -76,9 +76,11 @@ fn print_usage(usage: f32) {
         _ => ("", ""),
     };
 
-    println!("{icon} {style_start}{percent:>3}%{style_end}",
-             icon = FA_COG,
-             percent = usage.round(),
-             style_start = style_start,
-             style_end = style_end);
+    println!(
+        "{icon} {style_start}{percent:>3}%{style_end}",
+        icon = FA_COG,
+        percent = usage.round(),
+        style_start = style_start,
+        style_end = style_end
+    );
 }

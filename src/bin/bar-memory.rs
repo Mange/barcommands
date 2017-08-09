@@ -16,7 +16,9 @@ fn main() {
     let mut total_kbytes: Option<i32> = None;
     let mut available_kbytes: Option<i32> = None;
 
-    let was_clicked = env::var("BLOCK_BUTTON").map(|string| string == "1").unwrap_or(false);
+    let was_clicked = env::var("BLOCK_BUTTON")
+        .map(|string| string == "1")
+        .unwrap_or(false);
 
     let stats_file = File::open("/proc/meminfo").unwrap_or_else(|_| exit(1));
 
@@ -58,17 +60,21 @@ fn print_stats(was_clicked: bool, total_kb: i32, available_kb: i32) {
         let gibibytes_total = total_kb as f32 / 1024.0 / 1024.0;
         let gibibytes_used = (total_kb - available_kb) as f32 / 1024.0 / 1024.0;
 
-        println!("{icon} {style_start}{used:.1}/{total:.1} GiB{style_end}",
-                 icon = FA_MICROCHIP,
-                 style_start = style_start,
-                 used = gibibytes_used,
-                 total = gibibytes_total,
-                 style_end = style_end);
+        println!(
+            "{icon} {style_start}{used:.1}/{total:.1} GiB{style_end}",
+            icon = FA_MICROCHIP,
+            style_start = style_start,
+            used = gibibytes_used,
+            total = gibibytes_total,
+            style_end = style_end
+        );
     } else {
-        println!("{icon} {style_start}{percent:3}%{style_end}",
-                 icon = FA_MICROCHIP,
-                 style_start = style_start,
-                 percent = percent_used,
-                 style_end = style_end);
+        println!(
+            "{icon} {style_start}{percent:3}%{style_end}",
+            icon = FA_MICROCHIP,
+            style_start = style_start,
+            percent = percent_used,
+            style_end = style_end
+        );
     }
 }

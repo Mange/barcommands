@@ -191,9 +191,11 @@ fn refresh() {
 
     match sink {
         Some(sink) => {
-            println!("{icon} {percent:>3}%",
-                     icon = sink.icon(),
-                     percent = sink.volume_percent);
+            println!(
+                "{icon} {percent:>3}%",
+                icon = sink.icon(),
+                percent = sink.volume_percent
+            );
         }
         None => println!("ERR"),
     }
